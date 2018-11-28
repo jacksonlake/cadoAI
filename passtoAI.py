@@ -48,19 +48,14 @@ class ConvNet(nn.Module):
 
 
     def forward(self, x):
-        print('Begin forward pass. X shape:',x.shape)        
         x = F.relu(self.conv1(x.cuda()))
         x = self.pool1(x)
-        print('Conv1 layer: X shape:',x.shape)
         x = F.relu(self.conv2(x.cuda()))
-        x = self.pool2(x)
-        print('Conv2 layer: X shape:',x.shape)        
+        x = self.pool2(x)        
         x = F.relu(self.conv3(x.cuda()))
-        x = self.pool3(x)
-        print('Conv3 layer: X shape:',x.shape)    
+        x = self.pool3(x)    
         x = F.dropout(x, training=self.training)
         x = x.view(1, 32*32*4)  #Rectify 
-        print('Fully connected layer, shape:',x.shape)
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
     
@@ -109,23 +104,14 @@ def main(argv):
     [transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]) #normalize the data         
 
     cnn = ConvNet() #Create the instanse of net 
-    #cnn.to(device)  #Send it to GPU
     cnn = cnn.cuda()
     cnn = torch.load('cadoAI.pt')
     cnn.eval()
     inputs = transform_file(image_file,transformer)
     inputs = Variable(inputs.type(dtype))
     inputs = inputs.unsqueeze(0)
-    
-
-
-
-
+    print('Net output:')
     print(cnn(inputs.cuda()))
- 
-    #outputs = cnn(inputs)
-           
- 
     print('Done.')
 
 
