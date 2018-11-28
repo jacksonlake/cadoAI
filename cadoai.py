@@ -33,12 +33,12 @@ class ConvNet(nn.Module):
         self.conv2 = torch.nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1, padding=1)
         self.pool2 = torch.nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
         
-        self.conv3 = torch.nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1)
+        self.conv3 = torch.nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3, stride=1, padding=1)
         self.pool3 = torch.nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
         self.conv3_drop = nn.Dropout2d(0.5)
 
 
-        self.fc1 = torch.nn.Linear(32*32*4, 64)
+        self.fc1 = torch.nn.Linear(32*32*4*2, 64)
         self.fc2 = torch.nn.Linear(64, 1)
         torch.nn.init.xavier_uniform(self.conv1.weight) #initialize weights
         torch.nn.init.xavier_uniform(self.conv2.weight)
@@ -58,7 +58,7 @@ class ConvNet(nn.Module):
         x = self.pool3(x)
         #print('Conv3 layer: X shape:',x.shape)    
         x = F.dropout(x, training=self.training)
-        x = x.view(1, 32*32*4)  #Rectify 
+        x = x.view(1, 32*32*4*2)  #Rectify 
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
     
