@@ -1,8 +1,8 @@
-#cadoAI#
+# cadoAI
 
 This is yet another CNN for making a choice between a dog and a cat made on **PyTorch**
 
-##The model##
+## The model
 
 The model is a traditional Convolutional Neural Network with 3 convolutional layers and 1 fully connected layer. 
 First layer takes a 64 by 64 RGB image and applies 32 filters with kernel size 3, stride 1 and padding 1. 
@@ -17,14 +17,14 @@ Fully connected layer 1: takes rectified festure maps and passes them to the sec
 Fully connected layer 2: passes 64 neurons into 1 sigmoid neuron.
 Fully connected layer 3: gives a class probability, 1 is for cats, 0 is for dogs.
 
-##The database##
+## The database
 The database that was used for training is a classic Kaggle database for cat and dog images. 600 images went into testing, 9000 for training. 
 Database is processed with a help of a DataSet class and then passed into a custom DataLoader.
 
-##Performance## 
+## Performance 
 30 epochs gives 80% accuracy on the testing set. 
 
-##Lessons learned.##
+## Lessons learned.
 Since it's a personal educational project, I'm gonna add some notes for my futureself on what to avoid and what to remember:
 
 - don't forget to normalize the data 
