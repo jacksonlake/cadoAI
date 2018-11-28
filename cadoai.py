@@ -219,12 +219,12 @@ def main():
             #print('Processing file#',i)
             #print('Output: ', outputs.unsqueeze(0), 'Ground truth:', labels)
             #print('----------')
-            error_size = labels - outputs.unsqueeze(0)  #unaqueeze!!!!
+            error_size = labels - outputs.unsqueeze(0)
             #print('Error size',torch.abs(error_size))
             #print('----------')            
-            if (labels == 1 and torch.abs(error_size) > 0.45): #class 1 - cats
+            if (labels == 1 and torch.abs(error_size) > 0.4): #class 1 - cats
                 error_class_1 = error_class_1 + 1
-            if (labels == 0 and torch.abs(error_size) > 0.45):
+            if (labels == 0 and torch.abs(error_size) > 0.4):
                 error_class_0 = error_class_0 + 1
             if (torch.abs(error_size) > 0.4):
                 n_errors = n_errors + 1
