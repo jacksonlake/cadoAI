@@ -42,7 +42,7 @@ class ConvNet(nn.Module):
         self.conv3_drop = nn.Dropout2d(0.5)
 
 
-        self.fc1 = torch.nn.Linear(32*32*4, 64)
+        self.fc1 = torch.nn.Linear(32*32*8, 64)
         self.fc2 = torch.nn.Linear(64, 1)
         torch.nn.init.xavier_uniform(self.conv1.weight) #initialize weights
 
@@ -55,7 +55,7 @@ class ConvNet(nn.Module):
         x = F.relu(self.conv3(x.cuda()))
         x = self.pool3(x)    
         x = F.dropout(x, training=self.training)
-        x = x.view(1, 32*32*4)  #Rectify 
+        x = x.view(1, 32*32*8)  #Rectify 
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
     
