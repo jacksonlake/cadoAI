@@ -23,10 +23,6 @@ from torch.utils.data.sampler import SubsetRandomSampler
 
 class ConvNet(nn.Module):
 
-    #Classifying RGB images, therefore number of input channels = 3
-    #We want to apply 32 feature detectors (filters), so out channels is 32
-    #3x3 filter moves 1 pixel at a time
-    #ReLU" all negative values become 0, all positive values remain
 
 
     def __init__(self):
@@ -36,7 +32,7 @@ class ConvNet(nn.Module):
 
         self.conv2 = torch.nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, stride=1, padding=1)
         self.pool2 = torch.nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
-        
+
         self.conv3 = torch.nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3, stride=1, padding=1)
         self.pool3 = torch.nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
         self.conv3_drop = nn.Dropout2d(0.5)
@@ -51,9 +47,9 @@ class ConvNet(nn.Module):
         x = F.relu(self.conv1(x.cuda()))
         x = self.pool1(x)
         x = F.relu(self.conv2(x.cuda()))
-        x = self.pool2(x)        
+        x = self.pool2(x)
         x = F.relu(self.conv3(x.cuda()))
-        x = self.pool3(x)    
+        x = self.pool3(x)
         x = F.dropout(x, training=self.training)
         x = x.view(1, 32*32*8)  #Rectify 
         x = F.relu(self.fc1(x))
@@ -66,7 +62,7 @@ def transform_file(imgfile,transform):
     sample = Image.open(imgfile)
     sample = sample.convert('RGB')
     sample = sample.resize((64,64)) #Resizing images to universal size
-    return transform(sample)     
+    return transform(sample)
 
 def check_existence(FILENAME):
     if os.path.isfile(FILENAME) == False:
@@ -94,14 +90,14 @@ def main(argv):
             check_existence(image_file)
 
 
-    warnings.filterwarnings("ignore")  #not to dlood the output
+    warnings.filterwarnings("ignore")  #not to flood the output
     torch.set_printoptions(precision=10)   #to get a nice output
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu') #working on cuda, not on the CPU
 
     dtype=torch.cuda.FloatTensor
 
     transformer = transforms.Compose(
-    [transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]) #normalize the data         
+    [transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]) #normalize the data
 
     cnn = ConvNet() #Create the instanse of net 
     cnn = cnn.cuda()
