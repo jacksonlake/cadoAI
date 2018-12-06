@@ -79,7 +79,7 @@ class DataSetCatsDogs(Dataset):
         #According to the class list specified in the constructor goes into every folder 
         #and loads all the images in the folder. The line "img ="
         #varies to every database
-        file_number = int(index / len(self.class_list))
+        file_number = index
         folder_number = index % len(self.class_list)
         class_folder = os.path.join(self.root_dir, self.class_list[folder_number])
         for filepath in glob.iglob(class_folder):
@@ -116,7 +116,7 @@ class DataSetCatsDogs_test(Dataset):
         #According to the class list specified in the constructor goes into every folder 
         #and loads all the images in the folder. The line "img ="
         #varies to every database
-        file_number = int(index / len(self.class_list))
+        file_number = index
         folder_number = index % len(self.class_list)
         class_folder = os.path.join(self.root_dir, self.class_list[folder_number])
         for filepath in glob.iglob(class_folder):
@@ -168,7 +168,7 @@ def main():
     optimizer = optim.Adam(cnn.parameters(), lr=0.001) #Optimizer with learning rate 0.001
     running_loss = 0 
     total_train_loss = 0
-    for epoch in range(1):  #32 it was
+    for epoch in range(33):  #32 it was
         running_loss = 0
         for inputs, labels in train_loader:
             inputs, labels = Variable(inputs.type(dtype)), Variable(labels.type(dtype))
@@ -218,6 +218,4 @@ def main():
 
 if __name__ == "__main__":
    main()
-
-
 
