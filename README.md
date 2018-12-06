@@ -22,14 +22,14 @@ The database that was used for training is a classic Kaggle database for cat and
 Database is processed with a help of a DataSet class and then passed into a custom DataLoader.
 
 ## Performance 
-30 epochs gives 80% accuracy on the testing set. 
+32 epochs gives 90% accuracy on the testing set. 
 
 ## Lessons learned.
-Since it's a personal educational project, I'm gonna add some notes for my futureself on what to avoid and what to remember:
+Since it's a personal educational project, I'm gonna add some notes for my future self on what to avoid and what to remember:
 
 - don't forget to normalize the data 
 - don't forget to initialize the network
 - don't forget which Loss function you are using
 - don't forget that you are training on cuda
-- calculate all of the sizes in the networks, otherwise it will never work
+- calculate all of the sizes in your network, otherwise it will never work
 - pytorch only works with mini-batches
