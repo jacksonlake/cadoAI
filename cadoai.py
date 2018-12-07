@@ -79,7 +79,8 @@ class DataSetCatsDogs(Dataset):
         #According to the class list specified in the constructor goes into every folder 
         #and loads all the images in the folder. The line "img ="
         #varies to every database
-        file_number = index
+        #file_number = index
+        file_number = int(index / len(self.class_list))
         folder_number = index % len(self.class_list)
         class_folder = os.path.join(self.root_dir, self.class_list[folder_number])
         for filepath in glob.iglob(class_folder):
@@ -100,7 +101,7 @@ class DataSetCatsDogs(Dataset):
 
     def __len__(self): #return data length 
 
-        return 9000
+        return 9000*2
 
 
 class DataSetCatsDogs_test(Dataset):
@@ -157,7 +158,7 @@ def main():
     [transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]) #normalize the data         
 
     db = DataSetCatsDogs('training_set',train_transformer) #initiate DataBase
-    train_loader = DataLoader(dataset = db, batch_size=4, shuffle=True,num_workers=2)
+    train_loader = DataLoader(dataset = db, batch_size=64, shuffle=True,num_workers=2)
 
     cnn = ConvNet() #Create the instanse of net 
 
@@ -168,7 +169,7 @@ def main():
     optimizer = optim.Adam(cnn.parameters(), lr=0.001) #Optimizer with learning rate 0.001
     running_loss = 0 
     total_train_loss = 0
-    for epoch in range(33):  #32 it was
+    for epoch in range(38):  #32 it was
         running_loss = 0
         for inputs, labels in train_loader:
             inputs, labels = Variable(inputs.type(dtype)), Variable(labels.type(dtype))

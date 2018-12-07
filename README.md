@@ -22,7 +22,7 @@ The database that was used for training is a classic Kaggle database for cat and
 Database is processed with a help of a DataSet class and then passed into a custom DataLoader.
 
 ## Performance 
-32 epochs gives 90% accuracy on the testing set. 
+AI  gives 86% accuracy on the testing set. 
 
 ## Lessons learned.
 Since it's a personal educational project, I'm gonna add some notes for my future self on what to avoid and what to remember:
